@@ -2,8 +2,8 @@
 {
     public class Conta
     {
-        public string Agencia { get; set; }
-        public int NumConta { get; set; }
+        public string Agencia { get; private set; }
+        public int NumConta { get; private set; }
         public double Saldo { get; set; }
 
         public Conta(string agencia, int numConta)

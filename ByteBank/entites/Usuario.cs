@@ -6,8 +6,8 @@ namespace ByteBank.entites
     {
         public string Nome { get; set; }
         public string Senha { get; set; }
-        public Conta Conta { get; set; }
-        public string Cpf { get; set; }
+        public Conta Conta { get; private set; }
+        public string Cpf { get; private set; }
 
         public Usuario()
         {
