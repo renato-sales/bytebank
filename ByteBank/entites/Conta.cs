@@ -2,21 +2,21 @@
 {
     public class Conta
     {
-        private string agencia;
-        private int numConta;
-        private double saldo;
+        public string Agencia { get; set; }
+        public int NumConta { get; set; }
+        public double Saldo { get; set; }
 
         public Conta(string agencia, int numConta)
         {
-            this.agencia = agencia;
-            this.numConta = numConta;
+            Agencia = agencia;
+            NumConta = numConta;
         }
 
         public Conta()
         {
-            agencia = "0001";
-            numConta = GeradorNumConta();
-            saldo = 0;
+            Agencia = "0001";
+            NumConta = GeradorNumConta();
+            Saldo = 0;
         }
         private int GeradorNumConta()
         {
@@ -24,22 +24,7 @@
             int numSorteado = ale.Next(100000, 1000000);
             return numSorteado;
         }
-        public string GetAgencia()
-        {
-            return agencia;
-        }
-        public int GetNumConta()
-        {
-            return numConta;
-        }
-        public double GetSaldo()
-        {
-            return saldo;
-        }
-        public void SetSaldo(double saldo)
-        {
-            this.saldo = saldo;
-        }
+       
         public void ExibiContas(List<Usuario> usuarios, List<Conta> contas)
         {
             if (contas.Count == 0)
@@ -50,7 +35,7 @@
             {
                 for (int i = 0; i < usuarios.Count; i++)
                 {
-                    Console.WriteLine($"Nome:{usuarios[i].GetNomeTitular()} | Ag:{usuarios[i].GetConta().agencia} Conta:{usuarios[i].GetConta().numConta}");
+                    Console.WriteLine($"Nome:{usuarios[i].Nome} | Ag:{usuarios[i].Conta.Agencia} Conta:{usuarios[i].Conta.NumConta}");
                 }
             }
         }

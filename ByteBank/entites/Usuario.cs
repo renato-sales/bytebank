@@ -4,52 +4,32 @@ namespace ByteBank.entites
 {
     public class Usuario
     {
-        private string nomeTitular;
-        private string senha;
-        private Conta conta;
-        private string cpf;
+        public string Nome { get; set; }
+        public string Senha { get; set; }
+        public Conta Conta { get; set; }
+        public string Cpf { get; set; }
 
         public Usuario()
         {
         }
         public Usuario(string cpf, string senha)
         {
-            this.cpf = cpf;
-            this.senha = senha;
+            Cpf = cpf;
+            Senha = senha;
         }
 
         public Usuario(string nomeTitular, string cpf, string senha)
         {
-            this.nomeTitular = nomeTitular;
-            this.cpf = cpf;
-            this.senha = senha;
-            conta = new Conta();
+            Nome = nomeTitular;
+            Cpf = cpf;
+            Senha = senha;
+            Conta = new Conta();
         }
         public Usuario(string cpf)
         {
-            this.cpf = cpf;
+            Cpf = cpf;
         }
 
-        public string GetNomeTitular()
-        {
-            return nomeTitular;
-        }
-        public void SetNomeTitular(string nomeTitular)
-        {
-            this.nomeTitular = nomeTitular;
-        }
-        public Conta GetConta()
-        {
-            return conta;
-        }
-        public string GetCpf()
-        {
-            return cpf;
-        }
-        public void SetSenha(string senha)
-        {
-            this.senha = senha;
-        }
         public void InsercaoUsuario(List<Usuario> usuarios, List<Conta> contas)
         {
             Usuario usuario;
@@ -67,7 +47,7 @@ namespace ByteBank.entites
             if (usuarios.Count == 0)
             {
                 usuarios.Add(usuario);
-                conta = new Conta(usuario.conta.GetAgencia(), usuario.conta.GetNumConta());
+                conta = new Conta(usuario.Conta.Agencia, usuario.Conta.NumConta);
                 contas.Add(conta);
                 temp = "Usuário cadastrado com sucesso!";
             }
@@ -75,16 +55,16 @@ namespace ByteBank.entites
             {
                 for (int i = 0; i < usuarios.Count; i++)
                 {
-                    if (usuario.GetCpf().Equals(usuarios[i].cpf))
+                    if (usuario.Cpf.Equals(usuarios[i].Cpf))
                     {
                         temp = "Cpf já está cadastrado!!! \nInserção não efetuada...";
                     }
                     else
                     {
-                        if (!usuario.GetCpf().Equals(usuarios[i].cpf))
+                        if (!usuario.Cpf.Equals(usuarios[i].Cpf))
                         {
                             usuarios.Add(usuario);
-                            conta = new Conta(usuario.conta.GetAgencia(), usuario.conta.GetNumConta());
+                            conta = new Conta(usuario.Conta.Agencia, usuario.Conta.NumConta);
                             contas.Add(conta);
                             temp = "Usuário cadastrado com sucesso!";
                             break;
@@ -111,7 +91,7 @@ namespace ByteBank.entites
 
                 for (int i = 0; i < usuarios.Count; i++)
                 {
-                    if (usuario.GetCpf().Equals(usuarios[i].GetCpf()))
+                    if (usuario.Cpf.Equals(usuarios[i].Cpf))
                     {
                         contas.RemoveAt(i);
                         usuarios.RemoveAt(i);
@@ -143,11 +123,11 @@ namespace ByteBank.entites
 
                 for (int i = 0; i < usuarios.Count; i++)
                 {
-                    if (usuario.cpf.Equals(usuarios[i].cpf))
+                    if (usuario.Cpf.Equals(usuarios[i].Cpf))
                     {
-                        aux = $"Nome: {usuarios[i].nomeTitular}\n" +
-                            $"Cpf: {usuarios[i].cpf}\n" +
-                            $"Ag: {usuarios[i].conta.GetAgencia()} Conta:{usuarios[i].conta.GetNumConta()}";
+                        aux = $"Nome: {usuarios[i].Nome}\n" +
+                            $"Cpf: {usuarios[i].Cpf}\n" +
+                            $"Ag: {usuarios[i].Conta.Agencia} Conta:{usuarios[i].Conta.NumConta}";
                         break;
                     }
                     else
@@ -180,7 +160,7 @@ namespace ByteBank.entites
 
                 for (int i = 0; i < usuarios.Count; i++)
                 {
-                    if (usuario.cpf.Equals(usuarios[i].cpf) && usuario.senha.Equals(usuarios[i].senha))
+                    if (usuario.Cpf.Equals(usuarios[i].Cpf) && usuario.Senha.Equals(usuarios[i].Senha))
                     {
                         Console.WriteLine("Usuário logado com sucesso!");
                         aux = "Usuário logado com sucesso!";
@@ -216,13 +196,13 @@ namespace ByteBank.entites
                                         case '1':
                                             Console.Write("Digite o novo nome: ");
                                             nome = Console.ReadLine();
-                                            usuarios[i].SetNomeTitular(nome);
+                                            usuarios[i].Nome = nome;
                                             Console.WriteLine("Nome alterado com sucesso.");
                                             break;
                                         case '2':
                                             Console.Write("Digite a nova senha: ");
                                             senha = Console.ReadLine();
-                                            usuarios[i].SetSenha(senha);
+                                            usuarios[i].Senha = senha;
                                             Console.WriteLine("Senha alterada com sucesso.");
                                             break;
                                         case '0':
@@ -239,7 +219,7 @@ namespace ByteBank.entites
                                     {
                                         Console.Write("Digite o valor do depósito: ");
                                         valor = double.Parse(Console.ReadLine());
-                                        usuarios[i].conta.SetSaldo(usuarios[i].conta.GetSaldo() + valor);
+                                        usuarios[i].Conta.Saldo = (usuarios[i].Conta.Saldo + valor);
                                         Console.WriteLine("Deposito realizado com sucesso!");
                                     }
                                     catch (FormatException)
@@ -254,9 +234,9 @@ namespace ByteBank.entites
                                         Console.Write("Digite o valor do saque: ");
                                         saque = double.Parse(Console.ReadLine());
 
-                                        if (usuarios[i].conta.GetSaldo() >= saque)
+                                        if (usuarios[i].Conta.Saldo >= saque)
                                         {
-                                            usuarios[i].conta.SetSaldo(usuarios[i].conta.GetSaldo() - saque);
+                                            usuarios[i].Conta.Saldo = (usuarios[i].Conta.Saldo - saque);
                                             aux = "Saque realizado com sucesso";
                                         }
                                         else
@@ -273,7 +253,7 @@ namespace ByteBank.entites
                                     break;
 
                                 case '4':
-                                    Console.Write($"Saldo em conta: R$ {usuarios[i].conta.GetSaldo():F2}");
+                                    Console.Write($"Saldo em conta: R$ {usuarios[i].Conta.Saldo:F2}");
                                     Console.WriteLine();
                                     break;
 
@@ -286,7 +266,7 @@ namespace ByteBank.entites
 
                                         for (int j = 0; j < contas.Count; j++)
                                         {
-                                            if (numConta == usuarios[j].conta.GetNumConta())
+                                            if (numConta == usuarios[j].Conta.NumConta)
                                             {
                                                 temp = "Conta encontrada!";
                                             }
@@ -298,14 +278,14 @@ namespace ByteBank.entites
                                         Console.WriteLine(temp);
                                         for (int j = 0; j < contas.Count; j++)
                                         {
-                                            if (numConta == usuarios[j].conta.GetNumConta())
+                                            if (numConta == usuarios[j].Conta.NumConta)
                                             {
                                                 Console.Write("Digite o valor a ser transferido: ");
                                                 double valorTransf = double.Parse(Console.ReadLine());
-                                                if (usuarios[i].conta.GetSaldo() >= valorTransf)
+                                                if (usuarios[i].Conta.Saldo >= valorTransf)
                                                 {
-                                                    usuarios[i].conta.SetSaldo(usuarios[i].conta.GetSaldo() - valorTransf);
-                                                    usuarios[j].conta.SetSaldo(usuarios[j].conta.GetSaldo() + valorTransf);
+                                                    usuarios[i].Conta.Saldo = (usuarios[i].Conta.Saldo - valorTransf);
+                                                    usuarios[j].Conta.Saldo = (usuarios[j].Conta.Saldo + valorTransf);
                                                     aux = "Transferência efetuada com sucesso!";
                                                 }
                                                 else
